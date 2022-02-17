@@ -12,8 +12,8 @@ class Main extends Component {
             <div className="content">
               <p>&nbsp;</p>
               
-              <div className="card mb-3 mx-auto bg-dark" style={{ maxWidth: '512px' }}>
-                <h2 className="text-white text-monospace bg-dark"><b><ins>Share File</ins></b></h2>
+              <div className="card mb-3 mx-auto bg-white" style={{ maxWidth: '512px' }}>
+                <h2 className="text-dark text-monospace bg-white"><b>FileChain</b></h2>
                   <form onSubmit={(event) => {
                     event.preventDefault()
                     const description = this.fileDescription.value
@@ -29,7 +29,8 @@ class Main extends Component {
                             placeholder="description..."
                             required />
                       </div>
-                    <input type="file" onChange={this.props.captureFile} className="text-white text-monospace"/>
+                    <input type="file" onChange={this.props.captureFile} className="text-dark text-monospace"/>
+                    <br></br>
                     <button type="submit" className="btn-primary btn-block"><b>Upload!</b></button>
                   </form>
               </div>
@@ -38,7 +39,7 @@ class Main extends Component {
               {/* Create Table*/}
               <table className="table-sm table-bordered text-monospace" style={{ width: '1000px', maxHeight: '450px'}}>
               <thead style={{ 'fontSize': '15px' }}>
-                  <tr className="bg-dark text-white">
+                  <tr className="bg-white text-dark">
                     <th scope="col" style={{ width: '10px'}}>id</th>
                     <th scope="col" style={{ width: '200px'}}>name</th>
                     <th scope="col" style={{ width: '230px'}}>description</th>
@@ -52,7 +53,7 @@ class Main extends Component {
                 { this.props.files.map((file, key) => {
                   return(
                     <thead style={{ 'fontSize': '12px' }} key={key}>
-                      <tr>
+                      <tr className="bg-dark">
                         <td>{file.fileId}</td>
                         <td>{file.fileName}</td>
                         <td>{file.fileDescription}</td>

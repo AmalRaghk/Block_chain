@@ -36,6 +36,14 @@ class App extends Component {
     //Load account
     const _account = await web3.eth.getAccounts()
     this.setState({account : _account[0]})
+    console.log(_account)
+    const _wei = await web3.eth.getBalance(_account[0])
+    const _balance = await web3.utils.fromWei(_wei,'ether')
+    console.log(_balance)
+    this.setState({balance : _balance})
+    const transactionCount = await web3.eth.getTransactionCount(_account[0])
+    this.setState({transactionCount})
+    console.log(transactionCount)
     //Network ID
 
     const networkId = await web3.eth.net.getId()
@@ -132,7 +140,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar account={this.state.account} />
+        <Navbar account={this.state.account} balance={this.state.balance} transactionCount={this.state.transactionCount}/>
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
