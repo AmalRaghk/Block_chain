@@ -9,6 +9,7 @@ import Web3 from "web3";
 import { Buffer } from "buffer";
 import Storage from "../abis/Storage.json";
 import { Route, Routes,BrowserRouter } from "react-router-dom";
+import Footer from "./Footer"
 
 const ipfs = create({
   host: "localhost",
@@ -153,34 +154,45 @@ class App extends Component {
    
 
     return (
+      
+      <BrowserRouter>
       <div>
-        <BrowserRouter>
-        <Routes>
-  <Route path="/files" element={<Files files={this.state.files} />}/>
-        </Routes>
-        
-        </BrowserRouter>
         <Navbar
           currentAccount={this.state.currentAccount}
           balance={this.state.balance}
           transactionCount={this.state.transactionCount}
         />
-
+        <Routes>
+          <Route
+            path="/home"
+            element={
+              <Main
+                files={this.state.files}
+                captureFile={this.captureFile}
+                uploadFile={this.uploadFile}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Main
+                files={this.state.files}
+                captureFile={this.captureFile}
+                uploadFile={this.uploadFile}
+              />
+            }
+          />
+          <Route path="/files" element={<Files files={this.state.files} />} />
+        </Routes>
         {this.state.isLoading ? (
           <div id="loader" className="text-center mt-5">
             <CircularProgress color="secondary" />
           </div>
-        ) : (
-          <Main
-            files={this.state.files}
-            captureFile={this.captureFile}
-            uploadFile={this.uploadFile}
-          />
-        )}
-        
-
-       
+        ) : null}
+        <Footer/>
       </div>
+    </BrowserRouter>
     );
   }
 
