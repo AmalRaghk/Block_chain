@@ -1,15 +1,4 @@
-/* Styles go here */
-body {
-    background: url('../block.jpg') ;
-    color: white;
-    padding: 40px;
-    font-family: Arial;
-    text-align: center;
-  }
-.card{
-    padding: 10px;
-}
-.btn-block{
-  display: block;
-  margin-top: 10px;
-}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

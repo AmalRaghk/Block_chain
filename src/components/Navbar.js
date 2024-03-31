@@ -1,38 +1,35 @@
 import React, { Component } from "react";
 import Identicon from "identicon.js";
 import box from "../box.svg";
-
+import logo from "./img/share-svgrepo-com.svg";
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-white bg-white p-0 text-monospace">
-        <a
-          className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={box} width="30" height="30" className="align-top" alt="" />
-          FileChain
-        </a>
+      <nav className="bg-grey-900 border-gray-200 dark:bg-gray-900 text-white p-0 m-0">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  ">
+
+        <a href="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src={logo} className="h-8" alt="Flowbite Logo" />
+        <span className="self-center text-2xl font-semibold whitespace-nowrap ">CloudShare</span>
+      </a>
 
         <a
-          className="navbar-brand col-sm-3 col-md-2 mr-0"
+          className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
           href="/files"
           rel="noopener noreferrer"
-          style={{ color: "red" }}
+          
         >
           My Files
         </a>
         <ul className="navbar-nav px-3">
           <li>
-            <small id="account" className="text-dark">
+            <small id="account" className="block py-1 px-1 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
               Balance : {this.props.balance} ETH | Transaction Count :{" "}
               {this.props.transactionCount} |
               <a
                 target="_blank"
                 alt=""
-                className="text-danger"
+                className="block py-1 px-1 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 rel="noopener noreferrer"
                 href={"https://etherscan.io/address/" + this.props.account}
               >
@@ -61,6 +58,7 @@ class Navbar extends Component {
             )}
           </li>
         </ul>
+        </div>
       </nav>
     );
   }

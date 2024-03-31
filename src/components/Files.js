@@ -1,54 +1,50 @@
-import React from "react";
-import { convertBytes } from "./helpers";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 import moment from "moment";
-
+import { convertBytes } from "./helpers";
 const Files = ({ files }) => {
   return (
-    <div style={{ width: "max-content", margin: "auto" }}>
-      <table
-        className="table-sm table-bordered text-monospace"
-        style={{ width: "1000px", maxHeight: "450px" }}
-      >
-        <thead style={{ fontSize: "15px" }}>
-          <tr className="bg-white text-dark">
-            <th scope="col" style={{ width: "10px" }}>
-              id
-            </th>
-            <th scope="col" style={{ width: "200px" }}>
-              name
-            </th>
-            <th scope="col" style={{ width: "230px" }}>
-              description
-            </th>
-            <th scope="col" style={{ width: "120px" }}>
-              type
-            </th>
-            <th scope="col" style={{ width: "90px" }}>
-              size
-            </th>
-            <th scope="col" style={{ width: "90px" }}>
-              date
-            </th>
-            <th scope="col" style={{ width: "120px" }}>
-              hash/view/get
-            </th>
-          </tr>
-        </thead>
-        {files.map((file, key) => {
-          return (
-            <thead style={{ fontSize: "12px" }} key={key}>
-              <tr className="bg-dark">
-                <td>{file.fileId}</td>
-                <td>{file.fileName}</td>
-                <td>{file.fileDescription}</td>
-                <td>{file.fileType}</td>
-                <td>{convertBytes(file.fileSize)}</td>
-                <td>
-                  {moment.unix(file.uploadTime).format("h:mm:ss A M/D/Y")}
-                </td>
-                <td>
+    <div>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full h-screen bg-gray-800">
+        <Navbar/>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                id
+              </th>
+              <th scope="col" class="px-6 py-3">
+                name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                description
+              </th>
+              <th scope="col" class="px-6 py-3">
+                type
+              </th>
+              <th scope="col" class="px-6 py-3">
+                size
+              </th>
+              <th scope="col" class="px-6 py-3">
+                date
+              </th>
+              <th scope="col" class="px-6 py-3">
+                hash/view/get
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {files.map((file, key) => (
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={key}>
+                <td class="px-6 py-4">{file.fileId}</td>
+                <td class="px-6 py-4">{file.fileName}</td>
+                <td class="px-6 py-4">{file.fileDescription}</td>
+                <td class="px-6 py-4">{file.fileType}</td>
+                <td class="px-6 py-4">{convertBytes(file.fileSize)}</td>
+                
+                <td class="px-6 py-4">
                   <a
-                    href={"https://ipfs.infura.io/ipfs/" + file.fileHash}
+                    href={"http://localhost/5001" + file.fileHash}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -56,10 +52,11 @@ const Files = ({ files }) => {
                   </a>
                 </td>
               </tr>
-            </thead>
-          );
-        })}
-      </table>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Footer/>
     </div>
   );
 };

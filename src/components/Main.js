@@ -5,133 +5,83 @@ import moment from "moment";
 class Main extends Component {
   render() {
     return (
-      <div className="container-fluid mt-5 text-center">
+      <div className="container-fluid mt-2 text-center p-5 bg-gray-800">
         <div className="row">
           <main
             role="main"
-            className="col-lg-12 ml-auto mr-auto"
-            style={{ maxWidth: "1024px" }}
+            className="col-lg-12 col-md-12 col-sm-12 p-5"
           >
-            <div className="content">
-              <p>&nbsp;</p>
+            <div className="content card bg-gray-700 mx-auto max-w-lg">
+              <h1 className="text-dark text-monospace p-1">
+                <b>FileChain</b>
+              </h1>
 
-              <div
-                className="card mb-3 mx-auto bg-white"
-                style={{ maxWidth: "512px" }}
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const description = this.fileDescription.value;
+                  this.props.uploadFile(description);
+                }}
               >
-                <h2 className="text-dark text-monospace bg-white">
-                  <b>FileChain</b>
-                </h2>
-
-                <form
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    const description = this.fileDescription.value;
-                    this.props.uploadFile(description);
-                  }}
-                >
-                  <div className="form-group">
-                    <br></br>
+                <div className="flex flex-col items-center justify-center mb-6">
+                  <label
+                    htmlFor="dropzone-file"
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg
+                        className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">
+                          Click to upload
+                        </span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
                     <input
-                      id="fileDescription"
-                      type="text"
-                      ref={(input) => {
-                        this.fileDescription = input;
-                      }}
-                      className="form-control text-monospace"
-                      placeholder="description..."
-                      required
+                      id="dropzone-file"
+                      type="file"
+                      className="hidden"
+                      onChange={this.props.captureFile}
                     />
-                  </div>
-                  <input
-                    type="file"
-                    onChange={this.props.captureFile}
-                    className="text-dark text-monospace"
-                  />
-                  <br></br>
-                  <button type="submit" className="btn-primary btn-block">
-                    <b>Upload!</b>
-                  </button>
-                </form>
-              </div>
+                  </label>
 
-              <p>&nbsp;</p>
-              {/* Create Table*/}
-              {this.props.files.length > 0 && (
-                <table
-                  className="table-sm table-bordered text-monospace"
-                  style={{ width: "1000px", maxHeight: "450px" }}
+                  <input
+                    id="fileDescription"
+                    type="text"
+                    ref={(input) => {
+                      this.fileDescription = input;
+                    }}
+                    className="form-control text-monospace mt-6"
+                    placeholder="description..."
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                 className="btn-primary btn-block"
                 >
-                  <thead style={{ fontSize: "15px" }}>
-                    <tr className="bg-white text-dark">
-                      <th scope="col" style={{ width: "10px" }}>
-                        id
-                      </th>
-                      <th scope="col" style={{ width: "200px" }}>
-                        name
-                      </th>
-                      <th scope="col" style={{ width: "230px" }}>
-                        description
-                      </th>
-                      <th scope="col" style={{ width: "120px" }}>
-                        type
-                      </th>
-                      <th scope="col" style={{ width: "90px" }}>
-                        size
-                      </th>
-                      <th scope="col" style={{ width: "90px" }}>
-                        date
-                      </th>
-                      <th scope="col" style={{ width: "120px" }}>
-                        uploader/view
-                      </th>
-                      <th scope="col" style={{ width: "120px" }}>
-                        hash/view/get
-                      </th>
-                    </tr>
-                  </thead>
-                  {this.props.files.slice(0, 1).map((file, key) => {
-                    return (
-                      <thead style={{ fontSize: "12px" }} key={key}>
-                        <tr className="bg-dark">
-                          <td>{file.fileId}</td>
-                          <td>{file.fileName}</td>
-                          <td>{file.fileDescription}</td>
-                          <td>{file.fileType}</td>
-                          <td>{convertBytes(file.fileSize)}</td>
-                          <td>
-                            {moment
-                              .unix(file.uploadTime)
-                              .format("h:mm:ss A M/D/Y")}
-                          </td>
-                          <td>
-                            <a
-                              href={
-                                "https://etherscan.io/address/" + file.uploader
-                              }
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              {file.uploader.substring(0, 10)}...
-                            </a>
-                          </td>
-                          <td>
-                            <a
-                              href={
-                                "https://ipfs.infura.io/ipfs/" + file.fileHash
-                              }
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              {file.fileHash.substring(0, 10)}...
-                            </a>
-                          </td>
-                        </tr>
-                      </thead>
-                    );
-                  })}
-                </table>
-              )}
+                  Upload!
+                </button>
+              </form>
+
+              
             </div>
           </main>
         </div>
@@ -141,4 +91,3 @@ class Main extends Component {
 }
 
 export default Main;
-
