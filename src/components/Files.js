@@ -43,7 +43,7 @@ const Files = ({ files }) => {
                 
                 <td class="px-6 py-4">
                   <a
-                    href={"https://ipfs.io/ipfs/" + file.fileHash}
+                    href={"https://ipfs.io/ipfs//" + file.fileHash}
                     rel="noopener noreferrer"
                     target="_blank"
                   >

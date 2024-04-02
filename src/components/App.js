@@ -141,6 +141,7 @@ class App extends Component {
         fileType: "",
         fileName: "",
       });
+      console.log("file uploaded")
   
       window.location.reload();
     } catch (error) {
